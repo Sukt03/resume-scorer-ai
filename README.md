@@ -1,6 +1,6 @@
 # Resume Scorer AI
 
-Resume Scorer AI is an intelligent resume analysis tool built with Streamlit and powered by the Gemini API. It evaluates resumes based on multiple criteria, identifies the best-suited role for the candidate, and provides actionable feedback. The app also generates a downloadable PDF report summarizing the analysis.
+Resume Scorer AI is an intelligent resume analysis tool built with Streamlit and powered by the Gemini API. It evaluates resumes based on multiple criteria, identifies the best-suited role for the candidate, and provides actionable feedback. The app also generates a downloadable PDF report summarizing the analysis. I've done this in Collaboration with Subrahmanyam B H V S P [GitHub](https://github.com/dr-pandit-69)
 
 ## Features
 
@@ -37,18 +37,14 @@ pip install -r requirements.txt
 
 ### Set Up Environment Variables
 
-Create a `.env.development` file for sensitive API keys, while `.env` contains default values.
+Create a `.env` file for sensitive API keys
 
 #### Example `.env` file:
 ```ini
-GEMINI_API_URL=https://api.gemini.com/v1/analyze
-GEMINI_API_KEY=your_public_api_key_here
+API_KEY=your_gemini_api_key_here
 ```
 
-#### Example `.env.development` file (not committed to Git):
-```ini
-GEMINI_API_KEY=your_secret_api_key_here
-```
+
 
 ## Usage
 
@@ -74,10 +70,6 @@ resume-scorer-ai/
 ├── requirements.txt         # List of dependencies
 ├── README.md                # Project documentation
 ├── .env                     # Public environment config
-├── .env.development         # Local secrets (ignored by Git)
-└── data/
-    ├── sample_resumes/      # Sample resumes for testing
-    └── outputs/             # Generated PDF reports
 ```
 
 ## Contributing
@@ -99,5 +91,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - **Streamlit** for providing an easy-to-use web framework.
 - **Gemini API** for resume analysis capabilities.
 - **ReportLab** for PDF generation.
-- All contributors and users who help improve this project!
+- **Subrahmanyam B H V S P** for helping me out with the overall project- [GitHub](https://github.com/dr-pandit-69)
 
