@@ -46,6 +46,11 @@ Create a `.env` file for sensitive API keys
 ```ini
 API_KEY=your_gemini_api_key_here
 ```
+#### To retrieve your Gemini API Key for Free
+
+[Click this Link](https://aistudio.google.com/app/apikey)
+
+Go to Create an API key and Create the API Key and then copy it, after that paste it in your .env file in the place of your_gemini_api_key_here
 
 
 
