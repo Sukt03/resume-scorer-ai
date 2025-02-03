@@ -1,5 +1,4 @@
 import streamlit as st
-import json
 from utils import (
     extract_text_from_pdf,
     clean_text,
@@ -7,8 +6,6 @@ from utils import (
     ensure_output_directory,
     analyze_resume_dashboard
 )
-
-import config
 from config import STYLES,FOOTER_STYLE, STYLE_SUBMIT_BUTTON
 from utils import colored_metric
 
@@ -81,7 +78,7 @@ def check_data():
 def back_to_main():
     st.session_state["valid"]=True
     st.session_state["done"]=False
-    st.session_state["role"]=""
+
     st.session_state["comments"]=""
     st.session_state["analysis_result"]={}
     st.session_state["clean_text"]=""

@@ -1,4 +1,3 @@
-
 import fitz  
 import requests
 import os
@@ -10,7 +9,7 @@ from config import API_KEY
 import time
   
 
-# Configure logging
+
 logging.basicConfig(
     filename='app.log',
     filemode='a',
@@ -19,19 +18,11 @@ logging.basicConfig(
 )
 
 
+
+API_KEY=API_KEY
+
 def extract_text_from_pdf(uploaded_file):
-    """
-    Extracts text from a PDF file using PyMuPDF.
 
-    Parameters:
-        uploaded_file (file-like object): The uploaded PDF file.
-
-    Returns:
-        str: Extracted text from the PDF.
-    
-    Raises:
-        ValueError: If text extraction fails.
-    """
     try:
         logging.info("Starting text extraction from PDF.")
         with fitz.open(stream=uploaded_file.read(), filetype="pdf") as doc:
@@ -48,15 +39,7 @@ def extract_text_from_pdf(uploaded_file):
 
 
 def clean_text(text):
-    """
-    Cleans the extracted text by removing extra whitespace and unwanted characters.
 
-    Parameters:
-        text (str): The raw extracted text.
-
-    Returns:
-        str: Cleaned text.
-    """
     logging.info("Starting text cleaning.")
     # Remove multiple spaces, newlines, and tabs
     text = re.sub(r'\s+', ' ', text)
@@ -67,55 +50,9 @@ def clean_text(text):
     return cleaned_text
 
 
-def analyze_resume_with_gemini(resume_text, api_key, api_url):
-    """
-    Sends the resume text to the Gemini API for analysis.
-
-    Parameters:
-        resume_text (str): The cleaned resume text.
-        api_key (str): Your Gemini API key.
-        api_url (str): The Gemini API endpoint URL.
-
-    Returns:
-        dict: The analysis results from Gemini API.
-    
-    Raises:
-        SystemError: If the API request fails.
-    """
-    logging.info("Starting resume analysis with Gemini API.")
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    payload = {
-        "resume_text": resume_text
-    }
-    try:
-        response = requests.post(api_url, json=payload, headers=headers, timeout=30)
-        response.raise_for_status()  
-        logging.info("Successfully received response from Gemini API.")
-        return response.json()
-    except requests.exceptions.HTTPError as http_err:
-        logging.error(f"HTTP error occurred: {http_err}")
-        raise SystemError(f"HTTP error occurred: {http_err}")
-    except requests.exceptions.ConnectionError as conn_err:
-        logging.error(f"Connection error occurred: {conn_err}")
-        raise SystemError(f"Connection error occurred: {conn_err}")
-    except requests.exceptions.Timeout as timeout_err:
-        logging.error(f"Timeout error occurred: {timeout_err}")
-        raise SystemError(f"Timeout error occurred: {timeout_err}")
-    except requests.exceptions.RequestException as req_err:
-        logging.error(f"Request exception: {req_err}")
-        raise SystemError(f"An error occurred while requesting the Gemini API: {req_err}")
-    except Exception as e:
-        logging.error(f"Unexpected error: {e}")
-        raise SystemError(f"An unexpected error occurred: {e}")
-
 
 def ensure_output_directory():
-    """
-    Ensures that the output directory exists. Creates it if it doesn't.
-    """
+ 
     output_dir = os.path.join("data", "outputs")
     try:
         os.makedirs(output_dir, exist_ok=True)
@@ -125,15 +62,7 @@ def ensure_output_directory():
         raise SystemError(f"Failed to create output directory '{output_dir}': {e}")
 
 def clean_and_parse_json(text):
-    """
-    Removes Markdown code block markers from a JSON string and returns a parsed dictionary.
-    
-    Parameters:
-        text (str): The JSON string possibly wrapped in Markdown code block markers.
-    
-    Returns:
-        dict: The parsed JSON content.
-    """
+
     
     cleaned = re.sub(r'^```(?:json)?\s*', '', text.strip(), flags=re.MULTILINE)
     cleaned = re.sub(r'\s*```$', '', cleaned, flags=re.MULTILINE)
@@ -141,20 +70,8 @@ def clean_and_parse_json(text):
     return json.loads(cleaned)
 
 
-def validate_resume(resume_text,API_KEY=API_KEY):
-    """
-    Validates whether the provided resume text is a valid resume using the Gemini API.
-    
-    Parameters:
-        resume_text (str): The text extracted from the resume PDF.
-    
-    Returns:
-        tuple: (is_valid, comments) where is_valid is a boolean indicating if the resume is valid,
-               and comments is a string containing the evaluation feedback.
-    """
-   
-
-
+def validate_resume(resume_text):
+  
     genai.configure(api_key=API_KEY)
 
 
@@ -184,30 +101,8 @@ def validate_resume(resume_text,API_KEY=API_KEY):
   
 
 
-def analyze_resume_dashboard(resume_text, role, API_KEY=API_KEY):
-    """
-    Uses the Gemini API to analyze a resume and produce a JSON response with multiple score metrics,
-    the best suited role, an overall summary, and suggestions.
-    
-    Parameters:
-        resume_text (str): The cleaned text extracted from the resume.
-        role (str): The ideal role that the candidate is targeting.
-        
-    Returns:
-        dict: A dictionary containing keys:
-            - overall_cv_score (numeric 0-100)
-            - uniqueness_score (numeric 0-100)
-            - projects_score (numeric 0-100)
-            - work_experience_score (numeric 0-100)
-            - skills_score (numeric 0-100)
-            - education_score (numeric 0-100)
-            - best_suited_role (str)
-            - overall_summary (str)
-            - suggestions (list of str)
-    """
-
-
-
+def analyze_resume_dashboard(resume_text, role):
+  
     genai.configure(api_key=API_KEY)
     model = genai.GenerativeModel("gemini-1.5-flash")
     
@@ -234,7 +129,6 @@ Ideal role: {role}
     try:
  
         result = clean_and_parse_json(response.text)
-        
 
         if "suggestions" in result:
             suggestions = result["suggestions"]
