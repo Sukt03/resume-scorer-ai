@@ -1,6 +1,6 @@
 # Resume Scorer AI
 
-Resume Scorer AI is an intelligent resume analysis tool built with Streamlit and powered by the Gemini API. It evaluates resumes based on multiple criteria, identifies the best-suited role for the candidate, and provides actionable feedback. The app also generates a downloadable PDF report summarizing the analysis. I've done this in Collaboration with Subrahmanyam B H V S P [GitHub](https://github.com/dr-pandit-69)
+Resume Scorer AI is an intelligent resume analysis tool built with Streamlit and powered by the Gemini API. It evaluates resumes based on multiple criteria, identifies the best-suited role for the candidate, and provides actionable feedback. The app also generates a downloadable PDF report summarizing the analysis.
 
 
 ![](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTcyNHp5aWdtdzNjeHYwNTNvMG03cHEyYzdmY3Jzejk4eG5yYWNwdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/0Cuc4X1QZommvyUARs/giphy.gif)
